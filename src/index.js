@@ -35,7 +35,7 @@ app.use((req, res, next) => {
 //Routes
 app.use(require('./routes'));
 app.use(require('./routes/authentication'));
-app.use('/perfumes',require('./routes/perfumes'));
+app.use('/pruebas',require('./routes/pruebas'));
 
 //Public
 

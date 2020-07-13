@@ -8,3 +8,5 @@ CREATE TABLE perfume(
 	nombre text,
 	presentacion int
 );
+
+
