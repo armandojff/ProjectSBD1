@@ -1,1 +1,18 @@
-formu
+ <div class="col-md-5" >
+      <div class="card-body">
+        <form action="/pruebas/add" method="POST" >
+          <div class="form-group">
+            <input type="text" name="Id" placeholder="Id" class="form-control" autofocus required>
+          </div>
+          <div class="form-group">
+            <input type="text" name="Nombre" placeholder="Nombre" class="form-control" required>
+          </div>
+          <div class="form-group">
+                 <textarea name="Descripcion" rows="2" placeholder="Descripcion" class="form-control" required></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary">
+            Insertar registro
+          </button>
+        </form>
+      </div>
+    </div>

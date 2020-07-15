@@ -16,39 +16,21 @@
                 <td> {{ nombreprueba }} </td>
                 <td> {{ descripcionprueba }} </td>
                 <td>
-                  <a href="/" class="btn btn-info">Edit</a>
-                  <a href="/" class="btn btn-danger">Delete</a>
+                  <a href="/pruebas/edit/{{ idprueba }}" class="btn btn-info">Edit</a>
+                  <a href="/pruebas/delete/{{ idprueba }}" class="btn btn-danger">Delete</a>
                 </td>
               </tr>
              {{else}} 
                <div class="col-md-4 mx-auto">
             <div class="card card-body text-center">
                 <p>No hay registros de pruebas </p>
-                <a href="/pruebas">Agrega un registro!</a>
+                <a href="/pruebas/list">Agrega un registro!</a>
             </div>
               </div>
             {{/each}}
         </tbody>
       </table>
     </div>
-    <div class="col-md-5">
-      <div class="card-body">
-
-        <form action="/pruebas/add" method="POST">
-          <div class="form-group">
-            <input type="text" name="Id" placeholder="Id" class="form-control" autofocus required>
-          </div>
-          <div class="form-group">
-            <input type="text" name="Nombre" placeholder="Nombre" class="form-control" required>
-          </div>
-          <div class="form-group">
-                 <textarea name="Descripcion" rows="2" placeholder="Descripcion" class="form-control" required></textarea>
-          </div>
-          <button type="submit" class="btn btn-primary">
-            Insertar registro
-          </button>
-        </form>
-      </div>
-    </div>
+   
   </div>
 </div>

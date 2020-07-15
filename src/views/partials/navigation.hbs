@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <a class="navbar-brand" href="/">TEST  </a>
+  <a class="navbar-brand" href="/pruebas">TEST  </a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -9,23 +9,18 @@
     </ul>
 
     <!-- right items -->
-    <ul class="navbar-nav ml-auto">
-      {{#if user}}
+    <ul class="navbar-nav col-md-2 ml-md-auto">
         <li class="nav-item dropdown">
           <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" id="navbarDropdownMenuLink">
-            Tasks Operations
+            Gestionar
           </a>
           <div class="dropdown-menu">
-            <a href="/tasks" class="dropdown-item">Tasks</a>
-            <a href="/tasks/add" class="dropdown-item">Add Task</a>
+            <a href="/pruebas" class="dropdown-item">Ver registros</a>
+            <a href="/pruebas/add" class="dropdown-item">Añadir registros</a>
+            <a href="/pruebas" class="dropdown-item">Generar reporte</a>
           </div>
-        </li>
-        <li class="nav-item">
-          <a href="/users/logout" class="nav-link">Logout</a>
-        </li>
-      {{else}}
+  
 
-      {{/if}}
     </ul>
   </div>
 </nav>

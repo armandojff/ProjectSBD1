@@ -1,0 +1,20 @@
+     {{#each pruebas}}
+ <div class="col-md-5" >
+      <div class="card-body">
+        <form action="/pruebas/edit/{{ idprueba }}" method="POST" >
+          <div class="form-group">
+            <input type="text" name="Id" value="{{idprueba}}" class="form-control" autofocus >
+          </div>
+          <div class="form-group">
+            <input type="text" value= " {{ nombreprueba }} " name="Nombre" class="form-control" >
+          </div>
+          <div class="form-group">
+                 <textarea name="Descripcion" rows="2" placeholder="Descripcion" class="form-control" > {{descripcionprueba}}</textarea>
+          </div>
+          <button type="submit" class="btn btn-primary">
+            Modificar registro
+          </button>
+        </form>
+      </div>
+    </div>
+    {{/each}}
