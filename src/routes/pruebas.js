@@ -158,7 +158,7 @@ router.get('/reporte/:id', async (req,res) => {
 
 });
 
-router.get('/reporte', async (req,res) => {
+router.get('/report', async (req,res) => {
 
     var text = 'SELECT * FROM tablaprueba ';
    

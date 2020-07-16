@@ -30,8 +30,7 @@ alert("Se ha descargado el reporte exitosamente! ");
                 <td>
                   <a href="/pruebas/edit/{{ idprueba }}" class="btn btn-info">Edit</a>
                   <a href="/pruebas/delete/{{ idprueba }}" class="btn btn-danger">Delete</a>
-                  <button type="submit" href="/pruebas/reporte/{{ idprueba }}" class="btn btn-dark" onclick="return validar();">Reporte
-                  </button>
+                  <a href="/pruebas/reporte/{{idprueba}}" class="btn btn-dark" onclick="validar();">Reporte</a>
                 </td>
               </tr>
              {{else}} 
@@ -48,5 +47,5 @@ alert("Se ha descargado el reporte exitosamente! ");
    
   </div>
 
- <a href="/pruebas/reporte" class="btn btn-success">Reporte general</a>
+ <a href="/pruebas/report" class="btn btn-success" onclick="validar();">Reporte general</a>
 </div>
