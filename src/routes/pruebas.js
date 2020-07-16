@@ -71,6 +71,31 @@ router.get('/edit/:id', async (req,res) => {
 });
 
 
+router.post('/edit/:id', async (req,res) => {
+    
+    const {id} = req.params;
+
+    const data = req.body;
+
+    var text = 'SELECT * FROM tablaprueba WHERE idprueba = $1';
+
+    const value = [id];
+    
+    const results = await pool.query(text,value);
+
+    var prueba = results.rows;
+
+    var text1 = 'UPDATE tablaprueba SET idprueba = $1 , nombreprueba = $2, descripcionprueba = $3 WHERE idprueba= $4';
+   
+    const values = [data.Id,data.Nombre,data.Descripcion,prueba[0].idprueba];
+    
+    const results2 = await pool.query(text1,values);
+
+    res.redirect ('/pruebas');
+
+});
+
+
  
 router.get('/reporte/:id', async (req,res) => {
 

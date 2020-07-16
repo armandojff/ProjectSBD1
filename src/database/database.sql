@@ -11,7 +11,7 @@ CREATE TABLE perfume(
 
 INSERT INTO "perfume" values ("bleu de chanel",100);
 
-CREATE TABLE "tablaprueba" (
+CREATE TABLE "Tabla_Prueba" (
   "id_prueba" integer not null,
   "nombre_prueba" character varying not null,
   "descripcion_prueba" character varying not null,
