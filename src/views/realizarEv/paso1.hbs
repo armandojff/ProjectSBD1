@@ -1,0 +1,52 @@
+ 
+ <body class="bg-light">
+
+   <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+
+    <h2>Realizar Evaluacion </h2>
+  </div>
+
+ 
+    
+    <div class="col-md-8 order-md-1">
+<h4>Paso 1 </h2>
+
+      
+        <div class="row">
+          <div class="col-md-5 mb-3">
+            <label for="state">Productor</label>
+           <form action="/realizarEv/2" method="POST" >
+            <select class="custom-select d-block w-100" id="productor" name="productor" required>
+              <option value="">Elegir</option>
+              {{#each productor}}
+              <option> {{nombre_productor}} </option>
+              {{/each}}
+            </select>
+            <div class="invalid-feedback">
+              Selecciona un productor! 
+            </div>
+          </div>
+             <div class="col-md-5 mb-3 mt-0">
+            <label for="state">Tipo de evaluacion</label>
+            <select class="custom-select d-block w-100" id="tipo" name="tipo" required>
+              <option value="">Elegir</option>
+              <option>Inicial</option>
+              <option>Renovacion</option>
+            </select>
+            <div class="invalid-feedback">
+              Elija el tipo
+            </div>
+          </div>
+
+           <hr class="my-3">
+        <button class="btn btn-primary  btn-block" type="submit">Siguiente</button>
+
+        </form>
+         
+  
+ 
+  </main>
+
+
+</div>

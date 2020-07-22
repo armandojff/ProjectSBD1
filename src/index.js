@@ -34,8 +34,12 @@ app.use((req, res, next) => {
 
 //Routes
 app.use(require('./routes'));
-app.use(require('./routes/authentication'));
-app.use('/pruebas',require('./routes/pruebas'));
+app.use('/realizarEv',require('./routes/realizarEv'));
+//app.use('/pruebas',require('./routes/pruebas'));
+
+//Report Routes
+
+app.use('/reporteProveedor',require('./reports/proveedor'));
 
 //Public
 
