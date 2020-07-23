@@ -11,7 +11,15 @@ router.get('/' ,  async (req,res) => {
 
     const productores = await pool.query('SELECT * FROM "Productor"');
 
-    res.render('realizarEv/paso1', {productor : productores.rows});
+    const text = 'SELECT  l.nombre_pais FROM "Pais" as l,  "Pai_Prod" as a, "Productor" as t where a.id_pais=l.id_pais and t.id_productor=a.id_productor and t.id_productor=$1';
+
+    var value = [1];
+
+    const paises = await pool.query(text,value);
+
+    console.log(paises.rows);
+
+    res.render('realizarEv/paso1', {productor : productores.rows, paises: paises.rows});
 
 });
 
@@ -20,6 +28,8 @@ router.post('/2' ,  async (req,res) => {
     const data = req.body.productor;
     
     const data2 = req.body.tipo;
+
+    const pais = req.body.pais;
 
     const texto = 'SELECT * FROM "Productor" WHERE nombre_productor = $1';
     
@@ -31,15 +41,13 @@ router.post('/2' ,  async (req,res) => {
 
     const productor = productores.rows;
 
-    var text = 'SELECT p.nombre_proveedor FROM "Proveedor" as p, "Pais" as l, "Metodo_Envio" e, "Pai_Prod" as a, "Productor" as t, "Historico_Membresia" as h where p.id_proveedor=e.id_proveedor and l.id_pais=e.id_pais and e.id_pais=a.id_pais and t.id_productor=a.id_productor and t.id_productor= $1 and h.id_proveedor=p.id_proveedor and h.fecha_fin is null group by (p.nombre_proveedor)';
-    
-    var value = [productor[0].id_productor];
+    var text = 'SELECT  p.nombre_proveedor FROM "Proveedor" as p, "Pais" as l, "Metodo_Envio" e, "Pai_Prod" as a, "Productor" as t, "Historico_Membresia" as h where p.id_proveedor=e.id_proveedor and l.id_pais=e.id_pais and e.id_pais=a.id_pais and t.id_productor=a.id_productor and t.id_productor= $1 and e.id_pais= $2 and h.id_proveedor=p.id_proveedor and h.fecha_fin is null';
 
-    const results = await pool.query(text,value);
+    const results = await pool.query(text,[1,5]);
 
     console.log(results.rows);
 
-    res.render('realizarEv/paso2', { proveedor : results.rows , productor: productor[0]});
+    res.render('realizarEv/paso2', { proveedor : results.rows , productor: productor[0] , pais: pais});
 
     // Hasta aqui llega la consulta de proveedor 
 
@@ -196,7 +204,7 @@ router.post('/5' ,  async (req,res) => {
 
 
 
-router.post('/6' ,  async (req,res) => { 
+router.post('/6' ,   (req,res) => { 
    
     const id_pago  = req.body.pago;
 
@@ -213,6 +221,29 @@ router.post('/6' ,  async (req,res) => {
     console.log(id_proveedor);
     console.log(id_envio);
     console.log(id_productos);
+
+
+
+    //INSERCIONES EN LA BASE DE DATOS 
+
+    // INSERT DEL CONTRATO 
+
+    const text = 'INSERT INTO public."Contrato" (id_contrato, fecha_inicio, exclusividad, tipo_oferta, cantidad_oferta, fecha_cancelacion, motivo_cancelacion, id_productor, id_proveedor) VALUES (DEFAULT, $1, false, NULL, NULL, NULL, NULL, $2, $3)';
+    var value = [];
+    value.push("2020-07-23");
+    value.push(id_productor);
+    value.push(id_proveedor);
+
+    const contrato =  pool.query(text,value);
+
+
+    const metodo_pago =  pool.query('INSERT INTO "Cond_Part"  (id_cond_part, descripcion,id_condicion_pago,id_cond_pago_proveedor,id_contrato,id_proveedor_contrato,id_productor_contrato)  values (DEFAULT,NULL,4,4,7,4,1)');
+
+    const tipo_envio =  pool.query ('INSERT INTO "Cond_Part" (id_cond_part, descripcion,id_metodo_envio,id_envio_pais,id_proveedor_envio,id_contrato,id_proveedor_contrato,id_productor_contrato) values (DEFAULT,NULL,9,5,4,7,4,1)');
+
+    const producto1 = pool.query('INSERT INTO public."Catalogo_Contrato" (id_cat_cont, precio, id_contrato, id_productor_cont, id_proveedor_cont, id_ing, id_mat_prim) VALUES (DEFAULT, 50, 7, 1, 4, NULL, 330122)');
+
+    const producto2 = pool.query('INSERT INTO public."Catalogo_Contrato" (id_cat_cont, precio, id_contrato, id_productor_cont, id_proveedor_cont, id_ing, id_mat_prim) VALUES (DEFAULT, 50, 7, 1, 4, NULL, 200875)');
 
 
     res.redirect('/')

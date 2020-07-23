@@ -14,7 +14,7 @@
       
         <div class="row">
           <div class="col-md-5 mb-3">
-            <label for="state">Proveedores potenciales</label>
+            <label for="state">Proveedores potenciales (PAIS: {{pais}})</label>
            <form action="/realizarEv/3" method="POST" >
             <select class="custom-select d-block w-100" id="proveedor" name="proveedor" required>
               <option value="">Elegir</option>
@@ -27,7 +27,6 @@
             </div>
          </div>
            <input id="productor" name="productor" type="hidden" value={{productor.id_productor}}>
-
            <hr class="my-3">
         <button class="btn btn-primary  btn-block" type="submit">Siguiente</button>
     
