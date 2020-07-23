@@ -1,0 +1,60 @@
+ <body class="bg-light">
+
+   <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+
+    <h2>Realizar Evaluacion</h2>
+  </div>
+
+
+<h5>Productos </h5>
+ {{#each proveedor}}
+ <h5 class="my-3 mx-auto"> Proveedor : {{nombre_proveedor }} </h5>
+ {{/each}}
+     <form action="/realizarEv/6" method="POST" >
+      <div class="table-responsive">
+        <table class="table table-striped table-sm">
+          <thead>
+            <tr>               
+              <th>Numero IPC </th>
+              <th>Nombre de producto</th>
+              <th>Descripcion </th>
+         <th>Parte procesada </th>
+              <th>Duracion</th>
+              <th>Solubilidad</th>
+            </tr>
+          </thead>
+             {{#each producto }}
+          <tbody>     
+            <tr>
+              
+              <td>{{ numero_ipc }}</td>
+              <td>{{ nombre_materia }}</td>
+              <td>{{ descripcion_materia }}</td>
+          <td>{{ "parte procesada" }}</td>
+              <td>{{ duracion }}</td>
+              <td>{{ solubilidad }}</td>
+              <td><input class="mr-1" type="checkbox" id="productos" name="productos" value="{{ numero_ipc }}"></td>
+            
+            </tr>
+                 
+          </tbody>
+          {{/each}}
+        </table>
+      </div>
+      <input id="productor" name="productor" type="hidden" value={{ productor }}>
+
+{{#each proveedor}}
+       <input id="proveedor" name="proveedor" type="hidden" value={{ id_proveedor }}>
+{{/each }}
+       <input id="pago" name="pago" type="hidden" value={{ pago }}>
+
+       <input id="envio" name="envio" type="hidden" value={{ envio }}>
+ 
+
+   <button class="btn btn-primary  btn-block" type="submit">Crear contrato</button>
+      </form>
+
+    
+   </main>
+ </body>

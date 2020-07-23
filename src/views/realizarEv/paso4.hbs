@@ -1,0 +1,61 @@
+ 
+ <body class="bg-light">
+
+   <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+
+    <h2>Realizar Evaluacion</h2>
+  </div>
+
+
+<h5>Metodos de envio </h5>
+ {{#each proveedor}}
+ <h5 class="my-3 mx-auto"> Proveedor : {{nombre_proveedor }} </h5>
+ {{/each}}
+     <form action="/realizarEv/5" method="POST" >
+      <div class="table-responsive">
+        <table class="table table-striped table-sm">
+          <thead>
+            <tr>
+              <th>Tipo de envio</th>
+              <th>Costo</th>
+              <th>Descripcion</th>
+            </tr>
+          </thead>
+             {{#each envios }}
+          <tbody>     
+            <tr>
+              
+              <td>{{ tipo_envio }}</td>
+              <td>{{ costo_envio}}</td>
+              <td>{{ descripcion_envio }}</td>
+              <td><input class="mr-1" type="checkbox" id="envio" name="envio" value="{{id_metodo_envio}}"></td>
+            
+            </tr>
+                 
+          </tbody>
+          {{/each}}
+        </table>
+      </div>
+     
+      <input id="productor" name="productor" type="hidden" value={{ productor }}>
+
+{{#each proveedor}}
+       <input id="proveedor" name="proveedor" type="hidden" value={{ id_proveedor }}>
+{{/each }}
+
+       <input id="pago" name="pago" type="hidden" value={{ pago }}>
+ 
+
+
+
+
+
+<button class="btn btn-primary  btn-block" type="submit">Siguiente</button>
+      </form>
+
+    
+
+
+   </main>
+ </body>
