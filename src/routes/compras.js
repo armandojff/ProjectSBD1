@@ -357,7 +357,6 @@ router.post('/6' ,  async (req,res) => {
 
     console.log("costo envio a ver: ",costoEnvio);
 
-
     //DADO EL id DEL PRODUCTOR, CONSIGO EL json DEL PRODUCTOR
 
    const textoProductor = 'SELECT * FROM "Productor" WHERE id_productor = $1';
