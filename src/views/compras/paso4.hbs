@@ -11,7 +11,7 @@
    
      <div class="ml-1"><h5>Productor: {{productor.nombre_productor}}</h5></div>
     
-     <h5 class="mr-3">Provedor: {{ proveedor.nombre_proveedor}} </h5>
+     <h5 class="mr-3">Proveedor: {{ proveedor.nombre_proveedor}} </h5>
 
   </div>
 
@@ -45,6 +45,11 @@
 
       <input id="productor" name="productor" type="hidden" value={{ productor.id_productor }}>
 
+     <input id="proveedor" name="proveedor" type="hidden" value={{ proveedor.id_proveedor }}>
+
+      <input id="IdPedido" name="IdPedido" type="hidden" value={{ pedido.id_pedido }}>
+
+       <input id="IdContrato" name="IdContrato" type="hidden" value={{ contrato.id_contrato }}>
 
    <button class="btn btn-primary  btn-block" type="submit"> Siguiente </button>
       </form>
