@@ -347,13 +347,15 @@ router.post('/6' ,  async (req,res) => {
     const IdMetodoEnvio = req.body.metodo;
 
      //calcular costo de envio en base al id de metodo
-    const textoCostoE = 'SELECT c.id_cond_part,e.costo_envio from "Proveedor" as p, "Productor" as t, "Cond_Part" as c, "Contrato" as d, "Metodo_Envio" as e where p.id_proveedor=d.id_proveedor and t.id_productor=d.id_productor and d.id_contrato=c.id_contrato and p.id_proveedor=c.id_proveedor_contrato and t.id_productor=c.id_productor_contrato and c.id_metodo_envio=e.id_metodo_envio and d.id_contrato=2 and e.id_metodo_envio=$1';
+    const textoCostoE = 'SELECT c.id_cond_part,e.costo_envio from "Proveedor" as p, "Productor" as t, "Cond_Part" as c, "Contrato" as d, "Metodo_Envio" as e where p.id_proveedor=d.id_proveedor and t.id_productor=d.id_productor and d.id_contrato=c.id_contrato and p.id_proveedor=c.id_proveedor_contrato and t.id_productor=c.id_productor_contrato and c.id_metodo_envio=e.id_metodo_envio and d.id_contrato=$1 and e.id_metodo_envio=$2';
 
-    const valueCostoE = [IdMetodoEnvio];
+    const valueCostoE = [idContrato,IdMetodoEnvio];
 
     const costoEQuery = await pool.query(textoCostoE,valueCostoE);
 
     const costoEnvio = costoEQuery.rows;
+
+    console.log("costo envio a ver: ",costoEnvio);
 
 
     //DADO EL id DEL PRODUCTOR, CONSIGO EL json DEL PRODUCTOR
