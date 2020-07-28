@@ -58,7 +58,7 @@ router.post('/3' ,  async (req,res) => {
     //id proveedor
     const dataProveedor = req.body.proveedor;
 
-    //DADO EL NOMBRE DEL PRODUCTOR, CONSIGO EL ID DEL PRODUCTOR
+    //DADO EL ID DEL PRODUCTOR, CONSIGO EL JSON DEL PRODUCTOR
 
     const textoProductor = 'SELECT * FROM "Productor" WHERE id_productor = $1';
     
@@ -71,7 +71,7 @@ router.post('/3' ,  async (req,res) => {
     const productor = productorQuery.rows;
 
 
-       //DADO EL NOMBRE DEL Proveedor, CONSIGO EL ID DEL PROVEEDOR
+       //DADO EL NOMBRE DEL Proveedor, CONSIGO EL JSON DEL PROVEEDOR
 
     const textoProveedor = 'SELECT * FROM "Proveedor" WHERE nombre_proveedor = $1';
     
@@ -140,6 +140,33 @@ router.post('/4' ,  async (req,res) => {
      //id proveedor
      const dataProveedor = req.body.proveedor;
 
+     console.log(dataProveedor,dataProductor);
+
+     //DADO EL id DEL PRODUCTOR, CONSIGO EL json DEL PRODUCTOR
+
+    const textoProductor = 'SELECT * FROM "Productor" WHERE id_productor = $1';
+    
+    var valueProductor = [];
+
+    valueProductor.push(dataProductor);
+
+    const productorQuery = await pool.query(textoProductor,valueProductor);
+
+    const productor = productorQuery.rows;
+
+
+     //DADO EL id DEL Proveedor, CONSIGO EL json DEL PROVEEDOR
+
+    const textoProveedor = 'SELECT * FROM "Proveedor" WHERE id_proveedor = $1';
+    
+    var valueProveedor = [];
+
+    valueProveedor.push(dataProveedor);
+
+    const proveedorQuery = await pool.query(textoProveedor,valueProveedor);
+
+    const proveedor = proveedorQuery.rows;
+
      //contrato dado el id del productor y proveedor
 
     const textoContrato = 'SELECT c.id_contrato	FROM "Contrato" as c, "Productor" as t, "Proveedor" as p where p.id_proveedor=c.id_proveedor and t.id_productor=c.id_productor and p.id_proveedor=$1 and t.id_productor=$2';
@@ -158,11 +185,40 @@ router.post('/4' ,  async (req,res) => {
 
     const pedidoQuery = await pool.query(crearPedido,valueCrearPedido);
 
+    const pedido = pedidoQuery.rows;
 
-    res.redirect('/');
+    //Productos dado un id de contrato
+
+    const textoProductosContrato = 'SELECT m.numero_ipc,m.nombre_materia,d.precio, n.cantidad_vol FROM "Materia_Prima" as m, "Contrato" as c, "Proveedor" as p, "Productor" as t, "Catalogo_Contrato" as d,"Presentacion_Ing" as n where m.numero_ipc=d.id_mat_prim and d.id_contrato=c.id_contrato and d.id_contrato=c.id_contrato and d.id_productor_cont=c.id_productor and d.id_proveedor_cont=c.id_proveedor and c.id_proveedor=p.id_proveedor and c.id_productor=t.id_productor and n.id_materia_prima=m.numero_ipc and n.id_materia_prima=d.id_mat_prim and c.id_contrato=$1';
+
+    valueProductosContrato = [contrato[0].id_contrato];
+
+    const productosContratoQuery  = await pool.query(textoProductosContrato,valueProductosContrato);
+
+    const productosContrato = productosContratoQuery.rows;
+
+    console.log(pedido);
+
+    res.render('compras/paso4',{producto: productosContrato,productor:productor[0],proveedor:proveedor[0]});
+
+});
+
+router.post('/5' ,  async (req,res) => { 
+
+     //id productor
+     const ipcProducto = req.body.productos;
+ 
+     //id proveedor
+     const cantidadProducto = req.body.cantidadP;
+
+     console.log(ipcProducto,cantidadProducto);
+
+     res.redirect('/');
 
 
 });
+
+
 
 
 

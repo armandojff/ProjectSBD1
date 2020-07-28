@@ -1,0 +1,54 @@
+ <body class="bg-light">
+
+   <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+
+    <h2>Realizar pedido</h2>
+  </div>
+
+
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 ">
+   
+     <div class="ml-1"><h5>Productor: {{productor.nombre_productor}}</h5></div>
+    
+     <h5 class="mr-3">Provedor: {{ proveedor.nombre_proveedor}} </h5>
+
+  </div>
+
+<h5>Detalle de pedido </h5>
+
+
+     <form action="/compras/5" method="POST" >
+        <div class="table-responsive">
+        <table class="table table-striped table-sm">
+          <thead>
+            <tr>               
+              <th>Numero IPC </th>
+              <th>Nombre </th>
+              <th>Precio</th>
+              <th>Cantidad(vol)</th>
+            </tr>
+          </thead>
+             {{#each producto }}
+          <tbody>     
+            <tr>
+              <td>{{ numero_ipc }}</td>
+              <td>{{ nombre_materia }}</td>
+              <td>{{ precio }}</td>
+              <td>{{ cantidad_vol }} ml</td>
+              <td><input class="mr-1" type="checkbox" id="productos" name="productos" value="{{ numero_ipc }}"> <input class="mr-1" type="text" id="cantidadP" name="cantidadP" ></td>         
+            </tr>                
+          </tbody>
+          {{/each}}
+        </table>
+      </div>
+
+      <input id="productor" name="productor" type="hidden" value={{ productor.id_productor }}>
+
+
+   <button class="btn btn-primary  btn-block" type="submit"> Siguiente </button>
+      </form>
+
+    
+   </main>
+ </body>
