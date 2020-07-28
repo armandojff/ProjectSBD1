@@ -5,6 +5,7 @@ const pool = require('../database');
 
 
 
+
 router.get('/' ,  async (req,res) => { 
 
     const productores = await pool.query('SELECT * FROM "Productor"');
@@ -18,6 +19,12 @@ router.get('/' ,  async (req,res) => {
     console.log(paises.rows);
 
     res.render('compras/paso1', {productor : productores.rows});
+
+});
+
+router.get('/2' ,   (req,res) => { 
+
+    res.redirect('/compras');
 
 });
 
@@ -48,6 +55,13 @@ router.post('/2' ,  async (req,res) => {
     res.render('compras/paso2', { proveedor : results.rows , productor: productor[0]});
 
     // Hasta aqui llega la consulta de proveedor 
+
+});
+
+
+router.get('/3' ,   (req,res) => { 
+
+    res.redirect('/compras');
 
 });
 
@@ -132,6 +146,13 @@ router.post('/3' ,  async (req,res) => {
 
 });
 
+
+router.get('/4' ,   (req,res) => { 
+
+    res.redirect('/compras');
+
+});
+
 router.post('/4' ,  async (req,res) => { 
 
     //id productor
@@ -209,6 +230,13 @@ router.post('/4' ,  async (req,res) => {
     const pedidoId = pedidoIdQuery.rows;
 
     res.render('compras/paso4',{producto: productosContrato,productor:productor[0],proveedor:proveedor[0],pedido:pedidoId[0],contrato:contrato[0]});
+
+});
+
+
+router.get('/5' ,   (req,res) => { 
+
+    res.redirect('/compras');
 
 });
 
@@ -319,6 +347,13 @@ router.post('/5' ,  async (req,res) => {
 
 });
 
+
+router.get('/6' ,   (req,res) => { 
+
+    res.redirect('/compras');
+
+});
+
 router.post('/6' ,  async (req,res) => { 
 
     //id productor
@@ -412,6 +447,13 @@ router.post('/6' ,  async (req,res) => {
 
 });
 
+
+router.get('/7' ,   (req,res) => { 
+
+    res.redirect('/compras');
+
+});
+
 router.post('/7' ,  async (req,res) => { 
 
     //id pedido
@@ -476,9 +518,124 @@ router.post('/7' ,  async (req,res) => {
 
    const UPEDIDOQUERY = await pool.query(textUPEDIDO,valueUPEDIDO);
     
-   res.redirect('/');
+
+   // todo menos el metodo de envio y condicion de pago
+
+   const textCONFIRMACION = 'SELECT p.fecha_emision,p.estatus,p.pago_total_dolar, m.nombre_materia,d.cantidad, i.precio, i.cantidad_vol FROM "Pedido" as p, "Detalle_Pedido" as d, "Presentacion_Ing" as i, "Materia_Prima" as m where d.id_pedido=p.id_pedido and d.id_presentacion_ing=i.id_presentacion and i.id_materia_prima=m.numero_ipc and p.id_pedido=$1';
+
+    const valueCONFIRMACION = [idPedido];
+
+    const confirmacionQuery = await pool.query(textCONFIRMACION,valueCONFIRMACION);
+
+
+    const confirmacion= confirmacionQuery.rows
+
+    //metodo de envio dado id pedido
+
+    const textEnvio = 'SELECT e.tipo_envio,e.costo_envio FROM "Pedido" as p, "Cond_Part" as c, "Metodo_Envio" e where  p.id_conpart_envio=c.id_cond_part and e.id_metodo_envio=c.id_metodo_envio and p.id_pedido=$1';
+
+    const valueEnvio = [idPedido];
+
+    const envioQuery = await pool.query(textEnvio,valueEnvio);
+
+    const envios= envioQuery.rows;
+
+
+    //metodo de pago dado id pedido
+
+    const textPago = 'SELECT  b.tipo_pago FROM "Pedido" as p, "Cond_Part" as c, "Condicion_Pago" b where p.id_conpart_pago=c.id_cond_part and c.id_condicion_pago=b.id_condicion_pago and p.id_pedido=$1';
+
+    const valuePago = [idPedido];
+
+    const pagoQuery = await pool.query(textPago,valuePago);
+
+    const pago= pagoQuery.rows;
+
+     res.render('compras/confirmacion',{productor:productor[0], proveedor:proveedor[0] , confirmacion: confirmacion[0], envios:envios[0], pagos: pago[0] ,idPedido:idPedido});
 
    //res.render('compras/paso6',{pagos:pagoContrato , productor:productor[0] , proveedor: proveedor[0] , idPedido:idPedido });
+
+});
+
+router.post('/8', async (req,res) => {
+
+    idPedido = req.body.idPedido;
+
+    //confirmacion de pago 
+
+    const textoConfirm = 'UPDATE "Pedido" SET estatus=$1, fecha_confirmacion=$2,num_factura=$3  where id_pedido=$4';
+
+    numFactura = Math.floor(Math.random() * (100000 - 9999) + 99999);
+
+    var valueConfirm = ["aprobado","2020-07-29",numFactura,idPedido];
+
+    const confirmQuery = await pool.query(textoConfirm,valueConfirm);
+
+    console.log("confirmado: ",idPedido);
+
+    // monto
+
+   const textCONFIRMACION = 'SELECT p.fecha_emision,p.estatus,p.pago_total_dolar, m.nombre_materia,d.cantidad, i.precio, i.cantidad_vol FROM "Pedido" as p, "Detalle_Pedido" as d, "Presentacion_Ing" as i, "Materia_Prima" as m where d.id_pedido=p.id_pedido and d.id_presentacion_ing=i.id_presentacion and i.id_materia_prima=m.numero_ipc and p.id_pedido=$1';
+
+   const valueCONFIRMACION = [idPedido];
+
+   const confirmacionQuery = await pool.query(textCONFIRMACION,valueCONFIRMACION);
+
+
+   const confirmacion= confirmacionQuery.rows
+
+
+    res.render('compras/pago',{numFactura,idPedido,monto: confirmacion[0].pago_total_dolar});
+
+
+
+});
+
+router.post('/9', async (req,res) => {
+
+    idPedido = req.body.idPedido;
+
+    console.log("rechazado: ",idPedido);
+
+    //cancelar pedido
+
+    const textoCancel = 'UPDATE "Pedido" SET estatus=$1 where id_pedido=$2';
+
+    var valueCancel = ["cancelado",idPedido];
+
+    const cancelQuery = await pool.query(textoCancel,valueCancel);
+
+    res.redirect('/compras');
+
+
+    //confirmacion de pago 
+
+
+
+});
+
+router.post('/10', async (req,res) => {
+
+    const idPedido = req.body.idPedido;
+
+    const monto = req.body.monto;
+
+    console.log("confirmacion pago: ",idPedido,monto);
+
+     //pago al historico 
+
+     const taxtoPago = 'INSERT INTO "Historico_Pago" (id_historico_pago,fecha_pago,monto,id_pedido) values (DEFAULT,$1,$2,$3)';
+
+     var valuePago = ["2020-07-29",monto,idPedido];
+ 
+     const pagoQuery = await pool.query(taxtoPago,valuePago);
+
+    res.redirect('/compras');
+
+
+    //confirmacion de pago 
+
+
 
 });
 

@@ -1,0 +1,75 @@
+
+ <script>
+
+     function cancelado(){
+
+         alert("Pago CANCELADO");
+
+     }
+
+      function confirmado(){
+
+         alert("Pago Confirmado");
+
+     }
+
+
+ </script>
+
+<body class="bg-light">
+
+   <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+
+    <h2>Confirmar pago</h2>
+  </div>
+
+
+<h5>Detalle de pago </h5>
+
+      <div class="table-responsive">
+        <table class="table table-striped table-sm">
+          <thead>
+            <tr>
+              <th>Numero de factura</th>
+              <th>Monto total</th>
+            </tr>
+          </thead>
+          <tbody>
+              
+            <tr>
+              
+            <td>{{ numFactura }}</td>
+
+             <td>{{ monto }}</td>
+
+            </tr>
+                 
+          </tbody>
+        </table>
+      </div>
+    
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+<form action="/compras/10" method="POST" onclick="confirmado();">
+
+<input id="idPedido" name="idPedido" type="hidden" value={{idPedido}}>
+
+<input id="monto" name="monto" type="hidden" value={{monto}}>
+
+<button class="btn btn-success  " type="submit">Confirmar</button>
+
+</form>
+
+<form action="/" method="POST" onclick="cancelado();" >
+
+<input id="idPedido" name="idPedido" type="hidden" value={{idPedido}}>
+
+<button class="btn btn-danger  " type="submit"> Rechazar </button>
+
+</form>
+
+</div>
+
+    
+   </main>
+ </body>
