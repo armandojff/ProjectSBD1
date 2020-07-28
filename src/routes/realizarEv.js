@@ -23,6 +23,15 @@ router.get('/' ,  async (req,res) => {
 
 });
 
+
+
+
+router.get('/2' ,   (req,res) => { 
+
+    res.redirect('/realizarEv');
+
+});
+
 router.post('/2' ,  async (req,res) => { 
    
     const data = req.body.productor;
@@ -52,6 +61,12 @@ router.post('/2' ,  async (req,res) => {
     // Hasta aqui llega la consulta de proveedor 
 
 
+
+});
+
+router.get('/3' ,   (req,res) => { 
+
+    res.redirect('/realizarEv');
 
 });
 
@@ -94,8 +109,11 @@ router.post('/3' ,  async (req,res) => {
 
 
 
+router.get('/4' ,   (req,res) => { 
 
+    res.redirect('/realizarEv');
 
+});
 
 router.post('/4' ,  async (req,res) => { 
    
@@ -149,6 +167,11 @@ router.post('/4' ,  async (req,res) => {
 
 });
 
+router.get('/5' ,   (req,res) => { 
+
+    res.redirect('/realizarEv');
+
+});
 
 router.post('/5' ,  async (req,res) => { 
    
@@ -203,6 +226,11 @@ router.post('/5' ,  async (req,res) => {
 });
 
 
+router.get('/6' ,   (req,res) => { 
+
+    res.redirect('/realizarEv');
+
+});
 
 router.post('/6' ,   (req,res) => { 
    
@@ -244,7 +272,6 @@ router.post('/6' ,   (req,res) => {
     const producto1 = pool.query('INSERT INTO public."Catalogo_Contrato" (id_cat_cont, precio, id_contrato, id_productor_cont, id_proveedor_cont, id_ing, id_mat_prim) VALUES (DEFAULT, 50, 7, 1, 4, NULL, 330122)');
 
     const producto2 = pool.query('INSERT INTO public."Catalogo_Contrato" (id_cat_cont, precio, id_contrato, id_productor_cont, id_proveedor_cont, id_ing, id_mat_prim) VALUES (DEFAULT, 50, 7, 1, 4, NULL, 200875)');
-
 
     res.redirect('/')
 

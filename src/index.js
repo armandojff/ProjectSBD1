@@ -35,6 +35,8 @@ app.use((req, res, next) => {
 //Routes
 app.use(require('./routes'));
 app.use('/realizarEv',require('./routes/realizarEv'));
+
+app.use('/compras',require('./routes/compras'));
 //app.use('/pruebas',require('./routes/pruebas'));
 
 //Report Routes
