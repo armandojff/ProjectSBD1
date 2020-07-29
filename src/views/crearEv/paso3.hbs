@@ -1,0 +1,36 @@
+ 
+ <body class="bg-light">
+
+   <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+
+    <h2>Crear Evaluacion </h2>
+  </div>
+
+ 
+    
+    <div class="col-md-8 order-md-1">
+<h4>Asignar Escala </h2>
+
+       <form action="/crearEv/4" method="POST" >
+          <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+  <div class="ml-1"><h5>Rango inicial: </h5> <input type="text" name="rangoinicial" required></div>
+    
+    <div> <h5 class="mr-3">Rango final:  </h5> <input type="text" name="rangofinal" required></div>
+   
+  </div>
+
+  <input id="fechainicio" name="fechainicio" type="hidden" value={{ fechainicio }}>
+
+  <input id="fechafin" name="fechafin" type="hidden" value={{ fechafin }}>
+
+  <input id="idProductor" name="idProductor" type="hidden" value={{ idProductor }}>
+
+<button class="btn btn-primary  btn-block" type="submit">Finalizar </button>
+  </form>
+          </div>
+        
+  </main>
+
+
+ </body>

@@ -11,15 +11,7 @@ router.get('/' ,  async (req,res) => {
 
     const productores = await pool.query('SELECT * FROM "Productor"');
 
-    const text = 'SELECT  l.nombre_pais FROM "Pais" as l,  "Pai_Prod" as a, "Productor" as t where a.id_pais=l.id_pais and t.id_productor=a.id_productor and t.id_productor=$1';
-
-    var value = [1];
-
-    const paises = await pool.query(text,value);
-
-    console.log(paises.rows);
-
-    res.render('realizarEv/paso1', {productor : productores.rows, paises: paises.rows});
+    res.render('realizarEv/paso1', {productor : productores.rows});
 
 });
 
@@ -32,31 +24,34 @@ router.get('/2' ,   (req,res) => {
 
 });
 
+
 router.post('/2' ,  async (req,res) => { 
    
     const data = req.body.productor;
     
     const data2 = req.body.tipo;
 
-    const pais = req.body.pais;
-
-    const texto = 'SELECT * FROM "Productor" WHERE nombre_productor = $1';
+    const textoProductor = 'SELECT * FROM "Productor" WHERE nombre_productor = $1';
     
-    var value1 = [];
+    var valueProductor = [];
 
-    value1.push(data);
+    valueProductor.push(data);
 
-    const productores = await pool.query(texto,value1);
+    const productores = await pool.query(textoProductor,valueProductor);
 
     const productor = productores.rows;
 
-    var text = 'SELECT  p.nombre_proveedor FROM "Proveedor" as p, "Pais" as l, "Metodo_Envio" e, "Pai_Prod" as a, "Productor" as t, "Historico_Membresia" as h where p.id_proveedor=e.id_proveedor and l.id_pais=e.id_pais and e.id_pais=a.id_pais and t.id_productor=a.id_productor and t.id_productor= $1 and e.id_pais= $2 and h.id_proveedor=p.id_proveedor and h.fecha_fin is null';
+    var textoProveedor = 'SELECT p.nombre_proveedor FROM "Proveedor" as p, "Pais" as l, "Metodo_Envio" e, "Pai_Prod" as a, "Productor" as t, "Historico_Membresia" as h where p.id_proveedor=e.id_proveedor and l.id_pais=e.id_pais and e.id_pais=a.id_pais and t.id_productor=a.id_productor and t.id_productor=$1 and h.id_proveedor=p.id_proveedor and h.fecha_fin is null group by (p.nombre_proveedor)';
 
-    const results = await pool.query(text,[1,5]);
+    var valueProveedor = [];
 
-    console.log(results.rows);
+    valueProveedor.push(productor[0].id_productor);
+   
+    const proveedorQuery = await pool.query(textoProveedor,valueProveedor);
 
-    res.render('realizarEv/paso2', { proveedor : results.rows , productor: productor[0] , pais: pais});
+    console.log(proveedorQuery.rows);
+
+    res.render('realizarEv/paso2', { proveedor : proveedorQuery.rows , productor: productor[0]});
 
     // Hasta aqui llega la consulta de proveedor 
 
@@ -76,6 +71,8 @@ router.post('/3' ,  async (req,res) => {
     
     const data2 = req.body.productor;
 
+    //query con nombre proveedor
+
     const texto = 'SELECT * FROM "Proveedor" WHERE nombre_proveedor = $1';
     
     var value1 = [];
@@ -84,15 +81,39 @@ router.post('/3' ,  async (req,res) => {
 
     const proveedor = await pool.query(texto,value1);
 
+    const prove = proveedor.rows;
+
+    //query con id productor
+
     const texto2 = 'SELECT * FROM "Productor" WHERE id_productor = $1';
     
     var value2 = [];
 
     value2.push(data2);
 
-    const productor = await pool.query(texto2,value2);
+    const productores = await pool.query(texto2,value2);
 
-    const prove = proveedor.rows;
+    const productor = productores.rows;
+
+      //contrato para comprobar
+
+      var textoContrato = 'SELECT c.id_contrato from "Proveedor" as p, "Contrato" as c where p.id_proveedor=c.id_proveedor and  c.id_productor=$1 and c.id_proveedor=$2 and c.fecha_cancelacion is null ';
+
+      var valueContrato = [];
+  
+      valueContrato.push(data2);
+      valueContrato.push(prove[0].id_proveedor);
+
+      const contratoQuery = await pool.query(textoContrato,valueContrato);
+
+      console.log(contratoQuery.rows);
+
+      if ( contratoQuery.rows.length != 0 ){
+
+        res.render('realizarEv/error',{mensaje: "Ya hay contrato, no se puede realizar evaluacion inicial"});
+       
+      }else{
+            //query pagos
     
     var text = 'SELECT c.* from "Proveedor" as p, "Condicion_Pago" as c where p.id_proveedor=c.id_proveedor and p.id_proveedor= $1';
     
@@ -100,14 +121,48 @@ router.post('/3' ,  async (req,res) => {
 
     const results = await pool.query(text,value);
 
-    res.render('realizarEv/paso3', { pagos : results.rows , proveedor : proveedor.rows , productor: productor.rows});
+    //query para productos
 
-    // Hasta aqui llega la consulta de proveedor 
+    const textoProductos = 'SELECT m.* from "Proveedor" as p, "Materia_Prima" as m where p.id_proveedor=m.id_proveedor and p.id_proveedor = $1';
+ 
+    var valueProductos = [];
+
+    valueProductos.push(prove[0].id_proveedor);
+
+    const productos = await pool.query(textoProductos,valueProductos);
+
+
+    //query para metodos de envio
+
+    const textoMetodo = 'SELECT e.*from "Proveedor" as p, "Metodo_Envio" as e where p.id_proveedor=e.id_proveedor and p.id_proveedor= $1';
+ 
+    var valueMetodo = [];
+
+    valueMetodo.push(prove[0].id_proveedor);
+
+    const rmetodos = await pool.query(textoMetodo,valueMetodo);
+
+    const metodos = rmetodos.rows;
+
+
+
+    res.render('realizarEv/pasoMuestra', {proveedor:prove[0],producto: productos.rows , pagos: results.rows , envios: metodos} )
+
+    //res.render('realizarEv/paso3', { pagos : results.rows , proveedor : proveedor.rows , productor: productores.rows});
+        
+
+      }
+
+
 
 
 });
 
+router.post('/valoracionC' ,   (req,res) => { 
 
+    res.redirect('/');
+
+});
 
 router.get('/4' ,   (req,res) => { 
 
@@ -249,8 +304,6 @@ router.post('/6' ,   (req,res) => {
     console.log(id_proveedor);
     console.log(id_envio);
     console.log(id_productos);
-
-
 
     //INSERCIONES EN LA BASE DE DATOS 
 

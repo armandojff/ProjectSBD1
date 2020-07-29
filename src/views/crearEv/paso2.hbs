@@ -1,0 +1,52 @@
+ <body class="bg-light">
+
+   <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+
+    <h2>Crear evaluacion</h2>
+  </div>
+
+
+<h5>Criterios  </h5>
+     <form action="/crearEv/3" method="POST" >
+      <div class="table-responsive">
+        <table class="table table-striped table-sm">
+          <thead>
+            <tr>               
+              <th>Nombre de criterio</th>
+              <th>Descripcion de criterio</th>
+              <th>Peso %  (Suma = 100% (exito no cuenta))</th>
+            </tr>
+          </thead>
+             {{#each criterios }}
+          <tbody>     
+            <tr>
+              
+              <td>{{ nombre_criterio }}</td>
+              <td>{{ descripcion_criterio }}</td>
+               <input id="envio" name="criterioN" type="hidden" value={{ id_criterio }}>
+              <td><input class="mr-1" type="text" id="criterio" name="porcentajeC" ></td>
+            
+            </tr>
+                 
+          </tbody>
+          {{/each}}
+        </table>
+      </div>
+
+       <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+  <div class="ml-1"><h5>Fecha de Emision: </h5> <input type="text" name="fechainicio" required></div>
+
+       <input id="idProductor" name="idProductor" type="hidden" value={{ idProductor }}>
+    
+    <div> <h5 class="mr-3">Fecha de Vencimiento:  </h5> <input type="text" name="fechafin"></div>
+   
+  </div>
+     
+
+   <button class="btn btn-primary  btn-block" type="submit">Siguiente </button>
+      </form>
+
+    
+   </main>
+ </body>

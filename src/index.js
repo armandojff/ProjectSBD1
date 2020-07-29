@@ -37,7 +37,11 @@ app.use(require('./routes'));
 
 app.use('/realizarEv',require('./routes/realizarEv'));
 
+app.use('/crearEv',require('./routes/crearEv'));
+
 app.use('/compras',require('./routes/compras'));
+
+app.use('/contrato',require('./routes/contrato'));
 
 app.use('/recomendador',require('./routes/recomendador'));
 

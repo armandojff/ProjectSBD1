@@ -1,0 +1,76 @@
+ <script>
+
+     function cancelar(){
+         alert("Contrato cancelado exitosamente");
+     }
+ </script>
+ 
+ 
+ <body class="bg-light">
+
+   <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+
+    <h2>Cancelar contrato (manual) </h2>
+  </div>
+
+
+
+<h5>Contratos vigentes </h5>
+
+
+     <form action="/contrato/3" method="POST" >
+      <div class="table-responsive">
+        <table class="table table-striped table-sm">
+          <thead>
+            <tr>
+              <th>Fecha de inicio (contrato)</th>
+              <th>Nombre proveedor</th>
+            </tr>
+          </thead>
+             {{#each contratos }}
+          <tbody>
+              
+            <tr>
+              <td>{{ fecha_inicio }}</td>
+               <td>{{ nombre_proveedor }}</td>
+              <td><input class="mr-1" type="checkbox" id="idContrato" name="idContrato" value="{{ id_contrato }}"> </td>
+            </tr>
+                 
+          </tbody>
+          {{/each}}
+        </table>
+      </div>
+
+          <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+<h5>Quien cancela </h5>
+   
+  </div>
+
+  <select class="custom-select d-block w-100" id="quienC"name="quienC" >
+              <option value="">Elegir</option>
+             
+              <option> Productor </option>
+              <option> Proveedor </option>
+
+            </select>
+
+                      <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+<h5>Motivo </h5>
+   
+  </div>
+
+ <input class="w-100" type="text" name="motivo">
+
+  <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+<h5> </h5>
+   
+  </div>
+
+
+   <button class="btn btn-primary  btn-block" type="submit" onclick="cancelar();"> Cancelar </button>
+      </form>
+
+    
+   </main>
+ </body>

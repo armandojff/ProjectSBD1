@@ -4,41 +4,39 @@
    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
 
-    <h2>Realizar Evaluacion</h2>
+    <h2>Crear Evaluacion </h2>
   </div>
 
  
     
     <div class="col-md-8 order-md-1">
-<h4>Paso 2 (inicial)</h2>
+<h4>Paso 1 </h2>
+
       
         <div class="row">
           <div class="col-md-5 mb-3">
-            <label for="state">Proveedores potenciales (Envian a pais de productor) </label>
-           <form action="/realizarEv/3" method="POST" >
-            <select class="custom-select d-block w-100" id="proveedor" name="proveedor" required>
+            <label for="state">Productor</label>
+           <form action="/crearEv/2" method="POST" >
+            <select class="custom-select d-block w-100" id="productor" name="productor" required>
               <option value="">Elegir</option>
-              {{#each proveedor}}
-              <option> {{nombre_proveedor}} </option>
+              {{#each productor}}
+              <option> {{nombre_productor}} </option>
               {{/each}}
             </select>
             <div class="invalid-feedback">
-              Selecciona un proveedor! 
+              Selecciona un productor! 
             </div>
-         </div>
-           <input id="productor" name="productor" type="hidden" value={{productor.id_productor}}>
+          </div>
            <hr class="my-3">
+        
         <button class="btn btn-primary  btn-block" type="submit">Siguiente</button>
-    
+      
         </form>
+          </div>
+        </div>
+    
 
-   
-     
-        </div>
-        </div>
- 
   </main>
-
 
 
  </body>
