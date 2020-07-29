@@ -16,8 +16,6 @@ router.get('/' ,  async (req,res) => {
 
     const paises = await pool.query(text,value);
 
-    console.log(paises.rows);
-
     res.render('compras/paso1', {productor : productores.rows});
 
 });
@@ -629,6 +627,29 @@ router.post('/10', async (req,res) => {
      var valuePago = ["2020-07-29",monto,idPedido];
  
      const pagoQuery = await pool.query(taxtoPago,valuePago);
+
+    res.redirect('/compras');
+
+
+    //confirmacion de pago 
+
+
+
+});
+
+router.post('/11', async (req,res) => {
+
+    idPedido = req.body.idPedido;
+
+    console.log("pago rechazado: ",idPedido);
+
+    //cancelar pedido
+
+    const textoCancel = 'UPDATE "Pedido" SET estatus=$1 where id_pedido=$2';
+
+    var valueCancel = ["cancelado",idPedido];
+
+    const cancelQuery = await pool.query(textoCancel,valueCancel);
 
     res.redirect('/compras');
 

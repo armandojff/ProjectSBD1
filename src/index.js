@@ -18,7 +18,7 @@ app.engine('.hbs', exphbs({
     helpers: require('./lib/handlebars')
   }));
   app.set('view engine', '.hbs');
-  app.use(express.urlencoded({extended: false}));//recibir los datos de usuarios 
+  app.use(express.urlencoded({extended: true}));//recibir los datos de usuarios 
   app.use(express.json());
 //Middlewares
 
