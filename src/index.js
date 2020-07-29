@@ -16,7 +16,7 @@ app.engine('.hbs', exphbs({
     partialsDir: path.join(app.get('views'), 'partials'),
     extname: '.hbs',
     helpers: require('./lib/handlebars')
-  }))
+  }));
   app.set('view engine', '.hbs');
   app.use(express.urlencoded({extended: false}));//recibir los datos de usuarios 
   app.use(express.json());
@@ -34,9 +34,13 @@ app.use((req, res, next) => {
 
 //Routes
 app.use(require('./routes'));
+
 app.use('/realizarEv',require('./routes/realizarEv'));
 
 app.use('/compras',require('./routes/compras'));
+
+app.use('/recomendador',require('./routes/recomendador'));
+
 //app.use('/pruebas',require('./routes/pruebas'));
 
 //Report Routes

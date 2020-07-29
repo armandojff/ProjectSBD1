@@ -1,0 +1,189 @@
+ <body class="bg-light">
+
+   <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+
+    <h2>Recomendador de perfumes</h2>
+  </div>
+
+
+<h5>Familia olfativa </h5>
+
+     <form action="/recomendador/1" method="POST" >
+       <div class="table-responsive">
+        <table class="table table-striped table-sm">
+          <thead>
+            <tr>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>           
+            <tr>     
+            <td> Verde </td>
+            <td> <input class="mr-1" type="checkbox" id="metodo" name="metodo" value="Verde"> </td> 
+            </tr>
+
+              <tr>     
+            <td> Flores </td>
+            <td> <input class="mr-1" type="checkbox" id="metodo" name="metodo" value="Flores"> </td> 
+            </tr>
+
+             <tr>     
+            <td> Frutas </td>
+            <td> <input class="mr-1" type="checkbox" id="metodo" name="metodo" value="Frutas"> </td> 
+            </tr>
+
+             <tr>     
+            <td> Citrico </td>
+            <td> <input class="mr-1" type="checkbox" id="metodo" name="metodo" value="Citrico"> </td> 
+            </tr>
+
+             <tr>     
+            <td> Aromaticas </td>
+            <td> <input class="mr-1" type="checkbox" id="metodo" name="metodo" value="Aromaticas"> </td> 
+            </tr>
+
+             <tr>     
+            <td> Helechos </td>
+            <td> <input class="mr-1" type="checkbox" id="metodo" name="metodo" value="Helechos"> </td> 
+            </tr>
+
+             <tr>     
+            <td> Chipre </td>
+            <td> <input class="mr-1" type="checkbox" id="metodo" name="metodo" value="Chipre"> </td> 
+            </tr>
+
+             <tr>     
+            <td> Maderas </td>
+            <td> <input class="mr-1" type="checkbox" id="metodo" name="metodo" value="Maderas"> </td> 
+            </tr>
+
+             <tr>     
+            <td> Orientales </td>
+            <td> <input class="mr-1" type="checkbox" id="metodo" name="metodo" value="Orientales"> </td> 
+            </tr>
+
+             <tr>     
+            <td> Otros </td>
+            <td> <input class="mr-1" type="checkbox" id="metodo" name="metodo" value="Otros"> </td> 
+            </tr>
+                 
+          </tbody>
+        </table>
+      </div>
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+<h5>Genero </h5>
+   
+  </div>
+
+  <select class="custom-select d-block w-100" id="genero"name="genero" required>
+              <option value="">Elegir</option>
+             
+              <option> masculino </option>
+              <option> femenino </option>
+              <option> unisex </option>
+    
+            </select>
+
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+<h5>Edad </h5>
+   
+  </div>
+
+<select class="custom-select d-block w-100" id="edad" name="edad" required>
+              <option value="">Elegir</option>
+             
+              <option> joven </option>
+              <option> adulto </option>
+              <option> atemporal </option>
+    
+            </select>
+
+   <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+<h5>Intensidad </h5>
+   
+  </div>
+
+<select class="custom-select d-block w-100" id="intensidad" name="intensidad" required>
+              <option value="">Elegir</option>
+             
+              <option> frescos </option>
+              <option> intermedios </option>
+              <option> intensos </option>
+    
+            </select>
+
+
+
+
+
+      <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+<h5>Palabras que te definen </h5>
+   
+  </div>
+
+      <div class="table-responsive">
+        <table class="table table-striped table-sm">
+          <thead>
+            <tr>
+              <th>Aroma</th>
+            </tr>
+          </thead>
+         
+          <tbody>
+              
+            <tr>
+              <td>Rosa</td>
+              <td><input class="mr-1" type="checkbox" id="palabra" name="palabra" value="Rosa"> </td>
+           </tr>
+                 
+          </tbody>
+        </table>
+      </div>
+
+      <div class="table-responsive">
+        <table class="table table-striped table-sm">
+          <thead>
+            <tr>
+              <th>Caracter</th>
+            </tr>
+          </thead>
+         
+          <tbody>
+              
+            <tr>
+              <td>Clasico</td>
+              <td><input class="mr-1" type="checkbox" id="palabra" name="palabra" value="Clasico"> </td>
+           </tr>
+                 
+          </tbody>
+        </table>
+      </div>
+
+         <div class="table-responsive">
+        <table class="table table-striped table-sm">
+          <thead>
+            <tr>
+              <th>Personalidad</th>
+            </tr>
+          </thead>
+         
+          <tbody>
+              
+            <tr>
+              <td>Libertad</td>
+              <td><input class="mr-1" type="checkbox" id="palabra" name="palabra" value="libertad"> </td>
+           </tr>
+                 
+          </tbody>
+        </table>
+      </div>
+
+
+</select>
+ <button class="btn btn-primary  btn-block" type="submit"> Buscar </button>
+      </form>
+
+    
+   </main>
+ </body>
