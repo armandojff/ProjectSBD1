@@ -1,0 +1,54 @@
+ <body class="bg-light">
+
+   <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+
+    <h2>Realizar Evaluacion (inicial)</h2>
+  </div>
+
+
+<h5>Valoracion para criterios  </h5>
+     <form action="/realizarEv/aprobacion" method="POST" >
+      <div class="table-responsive">
+        <table class="table table-striped table-sm">
+          <thead>
+            <tr>               
+              <th>Nombre de criterio</th>
+              <th>Descripcion de criterio</th>
+              <th>Peso asignado en formula (%)</th>
+               <th>Valoracion ({{rangoinicial}} - {{rangofinal}})</th>
+            </tr>
+          </thead>
+             {{#each criterios }}
+          <tbody>     
+            <tr>
+              
+              <td>{{ nombre_criterio }}</td>
+              <td>{{ descripcion_criterio }}</td>
+              <td>{{ peso }}</td>
+              {{#ifeq id_criterio "6" }}
+            <input class="mr-1" type="hidden" id="pesoExito" name="pesoExito" value="{{ ../peso }}">
+                {{/ifeq}}
+                  {{#ifdif id_criterio  "6" }}
+            <td><input class="mr-1" type="text" id="valoracion" name="valoracion" ></td>
+            <input class="mr-1" type="hidden" id="idCriterio" name="idCriterio" value="{{ ../id_criterio }}">
+            <input class="mr-1" type="hidden" id="peso" name="peso" value="{{ ../peso }}">
+                {{/ifdif}}
+                        
+            </tr>
+                 
+          </tbody>
+          {{/each}}
+        </table>
+      </div>
+
+       <input class="mr-1" type="hidden" id="idProductor" name="idProductor" value="{{ idProductor }}">
+        <input class="mr-1" type="hidden" id="idProveedor" name="idProveedor" value="{{ idProveedor }}">
+
+
+   <button class="btn btn-primary  btn-block" type="submit">Siguiente </button>
+      </form>
+
+    
+   </main>
+ </body>

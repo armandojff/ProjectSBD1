@@ -1,0 +1,53 @@
+ <script>
+
+     function cancelado(){
+
+         alert("Contrato CANCELADO");
+
+     }
+
+      function confirmado(){
+
+         alert("Contrato Generado");
+
+     }
+
+ </script>
+
+ <body class="bg-light">
+
+   <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+
+    <h2>Confimarcion de contrato</h2>
+  </div>
+
+
+  <h3> Evaluacion aprobada, ¿desea generar contrato ?</h3>
+
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+
+<form action="/realizarEv/10" method="POST" onclick="confirmado();">
+
+<input id="idPedido" name="idProveedor" type="hidden" value={{ idProveedor}}>
+
+<input id="idPedido" name="idProductor" type="hidden" value={{ idProductor}}>
+
+<button class="btn btn-success  " type="submit">Confirmar</button>
+</form>
+
+
+
+<button class="btn btn-danger  " type="submit" onclick="cancelado();" href="/"> Rechazar </button>
+
+
+  </div>
+     
+   
+
+ 
+
+
+
+   </main>
+ </body>

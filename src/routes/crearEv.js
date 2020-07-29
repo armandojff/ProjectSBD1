@@ -58,7 +58,7 @@ router.post('/3' ,  async (req,res) => {
 
     var porcentaje = porcentajes.porcentajeC;
 
-
+  
 
 
     for(var i = 0; i <= 3; i++) {
@@ -92,6 +92,7 @@ router.post('/4' ,  async (req,res) => {
 
     //query para criterios
 
+
     fechainicio = req.body.fechainicio;
 
     fechafin = req.body.fechafin;
@@ -101,6 +102,9 @@ router.post('/4' ,  async (req,res) => {
     rangofinal = req.body.rangofinal;
 
     idProductor = req.body.idProductor;
+
+    if(fechafin === "")
+    fechafin = null;
 
     console.log(req.body);
 
